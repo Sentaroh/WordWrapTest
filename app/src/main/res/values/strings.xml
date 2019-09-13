@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WordWrapTest</string>
+    <string name="test_string1">SMBSync 2 is a tool for synchronizing files via wireless LAN using SMB1 or SMB2 protocol between the internal storage of Android terminal, SDCARD and PC/NAS. Synchronization is a one-way from the master to the target, mirror, move, copy, archive can be used. (Internal storage, SDCARD, SMB, ZIP combination is possible)
+You can start the synchronization by external application (Tasker, AutoMagic etc) or SMBSync2 schedule. Please refer to the Starting from other applications for interface with an external application.
+</string>
+    <string name="test_string2">SMBSync2はAndroid端末の内部ストレージ、SDCARDまたはUSBメディアとPC/NASの間でSMB1またはSMB2プロトコルを使用し無線LAN経由でファイルの同期を行うためのツールです。同期はマスターからターゲットへの一方向で、ミラー、移動、コピー、アーカイブが使用できます。
+SMBSync2のスケジュール機能または外部アプリケーション（TaskerやAutoMagicなど）により定期的に同期を開始する事が可能です。外部アプリケーションとのインターフェースについては他のアプリケーションからの起動を参照してください。
+</string>
+</resources>
