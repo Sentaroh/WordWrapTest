@@ -52,8 +52,8 @@ public class NonWordwrapTextView extends TextView {
         if (!isWordWrapEnabled()) {
             mSpannableSplitText=buildSplitText(MeasureSpec.getSize(w), MeasureSpec.getSize(h));
             float sep_line1=(int)toPixel(getResources(), 3);
-            float sep_line2=(int)toPixel(getResources(), 2);
-            int new_h=(int)(paint.getTextSize()+sep_line1)*mSplitTextLineCount+(int)sep_line2;
+            float sep_line2=(int)toPixel(getResources(), 7);
+            int new_h=(int)Math.ceil((paint.getTextSize()+sep_line1)*(float)mSplitTextLineCount+sep_line2);
             setMeasuredDimension( MeasureSpec.getSize(w), new_h);
         }
     }
@@ -92,26 +92,20 @@ public class NonWordwrapTextView extends TextView {
             mSplitTextLineCount=mOrgText.toString().split("\n").length;
         } else {
             output=new SpannableStringBuilder(mOrgText);
-            String input_string=output.toString();
             int start=0;
-            int end=mOrgText.length();
-            for (int index = start; index < output.length(); index++) {
-                float rts= Layout.getDesiredWidth(output, start, index+1, paint);
-                if (rts > width) {
-                    output.insert(index,"\n");
-                    start = index+1;
-                    index++;
-                } else if (output.charAt(index) == '\n') {
-                    start = index;
-                }
+            while(start<output.length()) {
+                String in_text=output.subSequence(start, output.length()).toString();
+                int nc=paint.breakText(in_text, true, width, null);
+                output.insert(start+nc, "\n");
+                start=start+nc+1;
             }
             mSplitTextLineCount=output.toString().split("\n").length;
         }
         return output;
     }
 
-    final static private float toPixel(Resources res, int sp) {
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, res.getDisplayMetrics());
+    final static private float toPixel(Resources res, int dp) {
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics());
         return px;
     };
 
