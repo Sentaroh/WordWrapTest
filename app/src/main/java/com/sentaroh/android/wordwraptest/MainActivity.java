@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class MainActivity extends AppCompatActivity {
+    final private static Logger log= LoggerFactory.getLogger(NonWordwrapTextView.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        log.setLogOption(true,true,true,true,true);
 
         TextView normal0=(TextView)findViewById(R.id.normal_view0);
         TextView normal1=(TextView)findViewById(R.id.normal_view1);

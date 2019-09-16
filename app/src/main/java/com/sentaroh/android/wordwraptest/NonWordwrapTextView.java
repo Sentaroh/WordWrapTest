@@ -10,9 +10,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class NonWordwrapTextView extends TextView {
+    final private static Logger log= LoggerFactory.getLogger(NonWordwrapTextView.class);
     private CharSequence mOrgText = "";
     private BufferType mOrgBufferType = BufferType.NORMAL;
     private int mSplitTextLineCount=0;
@@ -81,27 +84,31 @@ public class NonWordwrapTextView extends TextView {
         return mOrgText.length();
     }
 
-    synchronized public SpannableStringBuilder buildSplitText(int w, int h) {
+    public SpannableStringBuilder buildSplitText(int w, int h) {
+        boolean debug=false;
         TextPaint paint = getPaint();
         int wpl =getCompoundPaddingLeft();
         int wpr =getCompoundPaddingRight();
         int width = w - wpl - wpr;
+        if (debug) log.info("buildSplitText width="+width+", w="+w+", wpl="+wpl+", wpr="+wpr+", h="+h+", length="+mOrgText.length());
 
         SpannableStringBuilder output = null;
+        int add_cr_cnt=0;
         if (width<=0) {
             output=new SpannableStringBuilder(mOrgText);
             mSplitTextLineCount=mOrgText.toString().split("\n").length;
         } else {
             output=new SpannableStringBuilder(mOrgText);
             int start=0;
+            if (debug) log.info("input="+output.toString());
             while(start<output.length()) {
+                if (debug) log.info("start="+start);
                 String in_text=output.subSequence(start, output.length()).toString();
                 int cr_pos=in_text.indexOf("\n");
                 if (cr_pos>0) {
                     in_text = output.subSequence(start, start + cr_pos).toString();
                     int nc = paint.breakText(in_text, true, width, null);
-                    if (output.charAt(start + nc) != '\n')
-                        output.insert(start + nc, "\n");
+                    if (output.charAt(start + nc) != '\n') output.insert(start + nc, "\n");
                     start = start + nc + 1;
                 } else if (cr_pos==0) {
                     start = start + 1;
@@ -112,6 +119,10 @@ public class NonWordwrapTextView extends TextView {
                 }
             }
             mSplitTextLineCount=output.toString().split("\n").length;
+        }
+
+        if (debug) {
+            log.info("buildSplitText Number of Lines="+mSplitTextLineCount+", added_cr/lf_count="+add_cr_cnt);
         }
         return output;
     }
