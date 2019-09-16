@@ -6,6 +6,7 @@ import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 
@@ -95,9 +96,20 @@ public class NonWordwrapTextView extends TextView {
             int start=0;
             while(start<output.length()) {
                 String in_text=output.subSequence(start, output.length()).toString();
-                int nc=paint.breakText(in_text, true, width, null);
-                output.insert(start+nc, "\n");
-                start=start+nc+1;
+                int cr_pos=in_text.indexOf("\n");
+                if (cr_pos>0) {
+                    in_text = output.subSequence(start, start + cr_pos).toString();
+                    int nc = paint.breakText(in_text, true, width, null);
+                    if (output.charAt(start + nc) != '\n')
+                        output.insert(start + nc, "\n");
+                    start = start + nc + 1;
+                } else if (cr_pos==0) {
+                    start = start + 1;
+                } else {
+                    int nc=paint.breakText(in_text, true, width, null);
+                    output.insert(start+nc, "\n");
+                    start=start+nc+1;
+                }
             }
             mSplitTextLineCount=output.toString().split("\n").length;
         }
