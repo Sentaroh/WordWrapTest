@@ -2,12 +2,18 @@ package com.sentaroh.android.wordwraptest
 
 import android.content.Context
 import android.content.res.Resources
+import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import org.slf4j.LoggerFactory
+import android.content.res.TypedArray
+import android.graphics.Color
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class NonWordwrapTextView : TextView {
     companion object {
@@ -21,7 +27,9 @@ class NonWordwrapTextView : TextView {
     private var mOrgBufferType: TextView.BufferType = TextView.BufferType.NORMAL
     private var mSplitTextLineCount = 0
     private var mSpannableSplitText: SpannableStringBuilder? = null
-    var isWordWrapEnabled = false
+    private var isWordWrapEnabled = false
+
+    private var mViewId=-1L;
 
     constructor(context: Context) : super(context) {}
 
@@ -33,6 +41,8 @@ class NonWordwrapTextView : TextView {
         if (!isWordWrapEnabled) {
             super.setText(mSpannableSplitText, mOrgBufferType)
         }
+        log.debug("id=$mViewId, onLayout changed=$changed, left=$left, top=$top, right=$right, bottom=$bottom")
+//        log.debug("layout h="+layoutParams.height);
     }
 
     override fun onMeasure(w: Int, h: Int) {
@@ -41,20 +51,28 @@ class NonWordwrapTextView : TextView {
         if (!isWordWrapEnabled) {
             mSpannableSplitText = buildSplitText(View.MeasureSpec.getSize(w), View.MeasureSpec.getSize(h))
             val sep_line1 = toPixel(resources, 3).toInt().toFloat()
-            val sep_line2 = toPixel(resources, 7).toInt().toFloat()
-            val new_h = Math.ceil(((paint.textSize + sep_line1) * mSplitTextLineCount.toFloat() + sep_line2).toDouble()).toInt()
+            val fm = paint.fontMetrics
+            val ts_height = Math.abs(fm.top) + Math.abs(fm.bottom)
+            val new_h = Math.ceil(((ts_height + sep_line1) * mSplitTextLineCount.toFloat()).toDouble()).toInt()
             setMeasuredDimension(View.MeasureSpec.getSize(w), new_h)
+            log.debug("id=$mViewId, onMeasure w=$w, h=$h, new w="+View.MeasureSpec.getSize(w)+", h=$new_h")
+//            log.debug("id="+mViewId+", onMeasure w="+w+", h=0x%8h".format(h)+", new w="+View.MeasureSpec.getSize(w)+", h="+new_h)
+        } else {
+            log.debug("id="+mViewId+", onMeasure w="+w+", h="+h)
         }
+//        log.debug("layout h="+layoutParams.height);
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        log.debug("id="+mViewId+", onSizeChanged w=$w, h=$h, old_w=$oldw, old_h=$oldh")
     }
 
     override fun setText(text: CharSequence, type: TextView.BufferType) {
         mOrgText = text
         mOrgBufferType = type
         super.setText(text, type)
+        log.debug("id="+mViewId+", setText enterd, text="+text)
     }
 
     override fun getText(): CharSequence {
@@ -71,7 +89,7 @@ class NonWordwrapTextView : TextView {
         val wpl = compoundPaddingLeft
         val wpr = compoundPaddingRight
         val width = w - wpl - wpr
-        if (debug) log.info("buildSplitText width=" + width + ", w=" + w + ", wpl=" + wpl + ", wpr=" + wpr + ", h=" + h + ", length=" + mOrgText.length)
+        if (debug) log.info("id=$mViewId, buildSplitText width=$width, w=$w, wpl=$wpl, wpr=$wpr, h=$h, length=$mOrgText.length")
 
         var output: SpannableStringBuilder
         val add_cr_cnt = 0
@@ -81,9 +99,9 @@ class NonWordwrapTextView : TextView {
         } else {
             output = SpannableStringBuilder(mOrgText)
             var start = 0
-            if (debug) log.info("input=$output")
+            if (debug) log.info("id="+mViewId+", input=$output")
             while (start < output.length) {
-                if (debug) log.info("start=$start")
+                if (debug) log.info("id="+mViewId+", start=$start")
                 var in_text = output.subSequence(start, output.length).toString()
                 val cr_pos = in_text.indexOf("\n")
                 if (cr_pos > 0) {
@@ -103,7 +121,7 @@ class NonWordwrapTextView : TextView {
         }
 
         if (debug) {
-            log.info("buildSplitText Number of Lines=$mSplitTextLineCount, added_cr/lf_count=$add_cr_cnt")
+            log.info("id="+mViewId+", buildSplitText Number of Lines=$mSplitTextLineCount, added_cr/lf_count=$add_cr_cnt")
         }
         return output
     }

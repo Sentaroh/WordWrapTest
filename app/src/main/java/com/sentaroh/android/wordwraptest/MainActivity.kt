@@ -14,19 +14,22 @@ import org.slf4j.LoggerFactory
 
 class MainActivity : AppCompatActivity() {
     companion object {
-        private val log = LoggerFactory.getLogger(NonWordwrapTextView::class.java!!)
+        private val log = LoggerFactory.getLogger(NonWordwrapTextView::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        log.setLogOption(true, true, true, true, true)
+        log.info("onCreate entered")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        log.setLogOption(true, true, true, true, true)
 
         val normal0 = findViewById<View>(R.id.normal_view0) as TextView
         val normal1 = findViewById<View>(R.id.normal_view1) as TextView
+        val normal2 = findViewById<View>(R.id.normal_view2) as TextView
         val nonwordwrap0 = findViewById<View>(R.id.non_wordwrap_view0) as NonWordwrapTextView
         val nonwordwrap1 = findViewById<View>(R.id.non_wordwrap_view1) as NonWordwrapTextView
+        val nonwordwrap2 = findViewById<View>(R.id.non_wordwrap_view2) as NonWordwrapTextView
 
         val sb = SpannableStringBuilder(getString(R.string.test_string0))
         //        sb.setSpan(new TabStopSpan.Standard(100), 0, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -35,10 +38,11 @@ class MainActivity : AppCompatActivity() {
 
         normal0.text = sb
         normal1.text = getString(R.string.test_string1)
+        normal2.text = getString(R.string.test_string2)
 
         nonwordwrap0.text = sb
         nonwordwrap1.text = getString(R.string.test_string1)
-
+        nonwordwrap2.text = getString(R.string.test_string2)
 
     }
 

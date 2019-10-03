@@ -9,56 +9,115 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Normal TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/normal_view0"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/test_string0"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-    <TextView
-        android:id="@+id/normal_view1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/test_string1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-<!--    <TextView-->
-<!--        android:id="@+id/normal_view2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:layout_marginRight="1dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Normal"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            <TextView
+                android:id="@+id/normal_view0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_string0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
 
-    <TextView
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="1dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Non Wordwrap"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            <com.sentaroh.android.wordwraptest.NonWordwrapTextView
+                android:id="@+id/non_wordwrap_view0"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:text="@string/test_string0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Non Wordwrap TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="1dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/normal_view1"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:text="@string/test_string1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
 
-    <com.sentaroh.android.wordwraptest.NonWordwrapTextView
-        android:id="@+id/non_wordwrap_view0"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="1dp"
+            android:orientation="vertical">
+
+            <com.sentaroh.android.wordwraptest.NonWordwrapTextView
+                android:id="@+id/non_wordwrap_view1"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:text="@string/test_string1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/test_string0"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-    <com.sentaroh.android.wordwraptest.NonWordwrapTextView
-        android:id="@+id/non_wordwrap_view1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/test_string1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-<!--    <com.sentaroh.android.wordwraptest.NonWordwrapTextView-->
-<!--        android:id="@+id/non_wordwrap_view2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>-->
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="1dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/normal_view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test_string2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="1dp"
+            android:orientation="vertical">
+
+            <com.sentaroh.android.wordwraptest.NonWordwrapTextView
+                android:id="@+id/non_wordwrap_view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test_string2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
