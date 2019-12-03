@@ -2,6 +2,8 @@
     <string name="app_name">WordWrapTest</string>
     <string name="test_string0">/storage/emulated/0/Android/data/com.sentaroh.android.WordWrapTest/files/hoge.hoge</string>
 
-    <string name="test_string1">SMBSync 2 is a tool for synchronizing files via wireless LAN using SMB1 or SMB2 protocol between the internal storage of Android terminal, SDCARD and PC/NAS. Synchronization is a one-way from</string>
-    <string name="test_string2">SMBSync2はAndroid端末の内部ストレージ、SDCARDまたはUSBメディアとPC/NASの間でSMB1またはSMB2プロトコルを使用し無線LAN経由でファイルの同期を行うためのツールです。同期はマスターからターゲットへの一方向で、ミラー、移動、コピー、アーカイブが使用できます。</string>
+    <string name="test_string1">SMBSync 2 is a tool for synchronizing files via wireless LAN using SMB1 or SMB2 protocol between the internal storage of Android terminal,
+        SDCARD and PC/NAS. Synchronization is a one-way from</string>
+    <string name="test_string2">SMBSync2はAndroid端末の内部ストレージ、SDCARDまたはUSBメディアとPC/NASの間でSMB1またはSMB2プロトコルを使用し無線LAN経由でファイルの同期を行うためのツールです。
+        同期はマスターからターゲットへの一方向で、ミラー、移動、コピー、アーカイブが使用できます。</string>
 </resources>

@@ -9,6 +9,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import org.slf4j.LoggerFactory
 
 
@@ -40,9 +41,9 @@ class MainActivity : AppCompatActivity() {
         normal1.text = getString(R.string.test_string1)
         normal2.text = getString(R.string.test_string2)
 
-        nonwordwrap0.text = sb
-        nonwordwrap1.text = getString(R.string.test_string1)
-        nonwordwrap2.text = getString(R.string.test_string2)
+        nonwordwrap0.setText(sb, TextView.BufferType.SPANNABLE)
+        nonwordwrap1.setText(getString(R.string.test_string1), TextView.BufferType.NORMAL)
+        nonwordwrap2.setText(getString(R.string.test_string2), TextView.BufferType.NORMAL)
 
     }
 
